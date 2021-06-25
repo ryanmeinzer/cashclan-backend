@@ -1,0 +1,2 @@
+class GettersController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class GiversController < ApplicationController
+end
