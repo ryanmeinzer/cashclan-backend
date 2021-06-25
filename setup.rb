@@ -1,10 +1,10 @@
 # Generator Setups
 
-rails g resource Giver name:string phone:integer venmo:string location:string amount:integer
+rails g resource Giver name:string phone:integer venmo:string location:string amount:decimal
 
-rails g resource Getter name:string phone:integer venmo:string location:string amount:integer
+rails g resource Getter name:string phone:integer venmo:string location:string amount:decimal
 
-rails g resource Transaction giver_id:integer getter_id:integer giver_confirmed:boolean getter_confirmed:boolean status:string amount:integer location:string
+rails g resource Transaction giver_id:integer getter_id:integer giver_confirmed:boolean getter_confirmed:boolean status:string amount:decimal location:string
 
 # AR Relationships
 
