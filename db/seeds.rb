@@ -8,18 +8,26 @@
 
 require 'faker'
 
-Giver.destroy_all
-Getter.destroy_all
-Transaction.destroy_all
+Member.destroy_all
+Seller.destroy_all
+Buyer.destroy_all
 
 10.times do
-    Giver.create(name: Faker::Name.unique.name, phone: Faker::Number.number(digits: 10), venmo: Faker::Internet.username, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+    Member.create(name: Faker::Name.unique.name, phone: Faker::Number.number(digits: 10), venmo: Faker::Internet.username, selling: rand(2) == 1, buying: rand(2) == 1)
 end
 
-10.times do
-    Getter.create(name: Faker::Name.unique.name, phone: Faker::Number.number(digits: 10), venmo: Faker::Internet.username, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
-end
+Seller.create(member_id: Member.all.first.id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
 
-100.times do
-    Transaction.create(giver_id: Giver.all.sample.id, getter_id: Getter.all.sample.id, giver_confirmed: true, getter_confirmed: true, status: 'complete', amount: Faker::Number.between(from: 1, to: 100), location: '37.794374248633815, -122.400108679331')
+Seller.create(member_id: Member.all.second.id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+
+Seller.create(member_id: Member.all.third.id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+
+Buyer.create(member_id: Member.all[9].id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+
+Buyer.create(member_id: Member.all[8].id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+
+Buyer.create(member_id: Member.all[7].id, location: '37.794374248633815, -122.400108679331', amount: Faker::Number.between(from: 1, to: 100))
+
+20.times do
+    Transaction.create(seller_id: Seller.all.sample.id, buyer_id: Buyer.all.sample.id, seller_confirmed: rand(2) == 1, buyer_confirmed: rand(2) == 1, status: 'pending', amount: Faker::Number.between(from: 1, to: 100), location: '37.794374248633815, -122.400108679331')
 end

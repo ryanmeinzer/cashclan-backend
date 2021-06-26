@@ -10,25 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_25_233337) do
+ActiveRecord::Schema.define(version: 2021_06_26_062209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "getters", force: :cascade do |t|
-    t.string "name"
-    t.bigint "phone"
-    t.string "venmo"
+  create_table "buyers", force: :cascade do |t|
+    t.integer "member_id"
     t.string "location"
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "givers", force: :cascade do |t|
+  create_table "members", force: :cascade do |t|
     t.string "name"
     t.bigint "phone"
     t.string "venmo"
+    t.boolean "selling"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "buying"
+  end
+
+  create_table "sellers", force: :cascade do |t|
+    t.integer "member_id"
     t.string "location"
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
@@ -36,10 +42,10 @@ ActiveRecord::Schema.define(version: 2021_06_25_233337) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "giver_id"
-    t.integer "getter_id"
-    t.boolean "giver_confirmed"
-    t.boolean "getter_confirmed"
+    t.integer "seller_id"
+    t.integer "buyer_id"
+    t.boolean "seller_confirmed"
+    t.boolean "buyer_confirmed"
     t.string "status"
     t.integer "amount"
     t.string "location"

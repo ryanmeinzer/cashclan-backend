@@ -1,12 +1,12 @@
 class CreateTransactions < ActiveRecord::Migration[6.0]
   def change
     create_table :transactions do |t|
-      t.integer :giver_id
-      t.integer :getter_id
-      t.boolean :giver_confirmed
-      t.boolean :getter_confirmed
+      t.integer :seller_id
+      t.integer :buyer_id
+      t.boolean :seller_confirmed
+      t.boolean :buyer_confirmed
       t.string :status
-      t.decimal :amount
+      t.integer :amount
       t.string :location
 
       t.timestamps

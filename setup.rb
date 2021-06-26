@@ -1,24 +1,31 @@
 # Generator Setups
 
-rails g resource Giver name:string phone:integer venmo:string location:string amount:decimal
+rails g resource Member name:string phone:integer venmo:string selling:boolean buying: boolean
 
-rails g resource Getter name:string phone:integer venmo:string location:string amount:decimal
+rails g resource Seller member_id:integer location:string amount:integer
 
-rails g resource Transaction giver_id:integer getter_id:integer giver_confirmed:boolean getter_confirmed:boolean status:string amount:decimal location:string
+rails g resource Buyer member_id:integer location:string amount:integer
+
+rails g resource Transaction seller_id:integer buyer_id:integer seller_confirmed:boolean buyer_confirmed:boolean status:string amount:integer location:string
 
 # AR Relationships
 
-# Giver
+# Member
 
+has_many :transactions, through: :sellers
+has_many :transactions, through: :buyers
+
+# Seller
+
+belongs_to :member
 has_many :transactions
-has_many :getters, through: :transactions
 
-# Getter
+# Buyer
 
+belongs_to :member
 has_many :transactions
-has_many :givers, through: :transactions
 
 # Transaction
 
-belongs_to :giver
-belongs_to :getter
+belongs_to :seller
+belongs_to :buyer
