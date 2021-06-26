@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_062209) do
+ActiveRecord::Schema.define(version: 2021_06_26_195649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "buyers", force: :cascade do |t|
-    t.integer "member_id"
-    t.string "location"
-    t.integer "amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "members", force: :cascade do |t|
     t.string "name"
@@ -31,19 +23,11 @@ ActiveRecord::Schema.define(version: 2021_06_26_062209) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "buying"
-  end
-
-  create_table "sellers", force: :cascade do |t|
-    t.integer "member_id"
-    t.string "location"
+    t.string "email"
     t.integer "amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "seller_id"
-    t.integer "buyer_id"
     t.boolean "seller_confirmed"
     t.boolean "buyer_confirmed"
     t.string "status"
@@ -51,6 +35,8 @@ ActiveRecord::Schema.define(version: 2021_06_26_062209) do
     t.string "location"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "seller_id"
+    t.integer "buyer_id"
   end
 
 end

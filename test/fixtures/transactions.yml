@@ -1,8 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  seller_id: 1
-  buyer_id: 1
   seller_confirmed: false
   buyer_confirmed: false
   status: MyString
@@ -10,8 +8,6 @@ one:
   location: MyString
 
 two:
-  seller_id: 1
-  buyer_id: 1
   seller_confirmed: false
   buyer_confirmed: false
   status: MyString

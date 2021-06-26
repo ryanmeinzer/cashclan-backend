@@ -1,6 +1,4 @@
 class Member < ApplicationRecord
-    has_many :sellers 
-    has_many :buyers
-    has_many :transactions, through: :sellers
-    has_many :transactions, through: :buyers
+    has_many :purchases, :class_name => 'Transaction', :foreign_key => 'buyer_id'
+    has_many :sales, :class_name => 'Transaction', :foreign_key => 'seller_id'
 end
