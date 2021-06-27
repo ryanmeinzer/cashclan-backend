@@ -16,10 +16,16 @@ class TransactionsController < ApplicationController
         # render json: transaction
     end
 
+    def show
+        transaction = Transaction.find(params[:id])
+        render json: transaction.seller.name
+        # render json: transaction
+    end
+
     private
 
     def transaction_params
-        params.require(:transaction).permit(:seller_id, :buyer_id, :seller_confirmed, :buyer_confirmed, :status, :amount, :location)
+        params.require(:transaction).permit(:seller_id, :buyer_id, :seller_confirmed, :buyer_confirmed, :status, :amount, :location, :seller_name)
     end
 
 end
