@@ -6,8 +6,12 @@ class MembersController < ApplicationController
     end
     
     def create
-        member = Member.create(member_params)
-        # render json: member
+        # member = Member.create(member_params)
+        member = Member.find_or_create_by(googleId: params[:googleId]) do |member|
+            member.name = params[:name]
+            member.email = params[:email]
+            member.location = params[:location]
+        end
     end
 
     def update
@@ -19,7 +23,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:name, :phone, :venmo, :selling, :buying, :amount, :location)
+        params.require(:member).permit(:googleId, :name, :email, :phone, :venmo, :selling, :buying, :amount, :location)
     end
 
 end
