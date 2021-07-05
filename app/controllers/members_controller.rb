@@ -4,6 +4,13 @@ class MembersController < ApplicationController
         members = Member.all 
         render json: members
     end
+
+    # for sessions (incomplete)
+    def new
+        if session[:member_id]
+            member = Member.find(session[:member_id])
+        end
+    end
     
     def create
         # member = Member.create(member_params)
@@ -12,12 +19,20 @@ class MembersController < ApplicationController
             member.email = params[:email]
             member.location = params[:location]
         end
+        # for sessions (incomplete)
+        session[:member_id] = member.id
+        # render 'members/new'
     end
 
     def update
         member = Member.find(params[:id])
         member.update(member_params)
         # render json: member
+    end
+
+    # for sessions (incomplete)
+    def show
+        member = Member.find(params[:id])
     end
 
     private
