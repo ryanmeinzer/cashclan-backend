@@ -17,23 +17,31 @@ class MembersController < ApplicationController
         member = Member.find_or_create_by(googleId: params[:googleId]) do |member|
             member.name = params[:name]
             member.email = params[:email]
+            member.phone = params[:phone]
+            member.venmo = params[:venmo]
+            member.selling = params[:selling]
+            member.buying = params[:buying]
+            member.amount = params[:amount]
             member.location = params[:location]
         end
+
         # for sessions (incomplete)
-        session[:member_id] = member.id
+        # session[:member_id] = member.id
+
         # render 'members/new'
     end
 
     def update
-        member = Member.find(params[:id])
+        # member = Member.find(params[:id])
+        # could use below, but it is unsecure
+        member = Member.find_by(googleId: params[:id])
         member.update(member_params)
-        # render json: member
     end
 
-    # for sessions (incomplete)
-    def show
-        member = Member.find(params[:id])
-    end
+    # def show
+    #     member = Member.find(params[:id])
+    #     render json: member
+    # end
 
     private
 
