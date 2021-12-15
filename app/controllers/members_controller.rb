@@ -6,11 +6,11 @@ class MembersController < ApplicationController
     end
 
     # for sessions (incomplete)
-    def new
-        if session[:member_id]
-            member = Member.find(session[:member_id])
-        end
-    end
+    # def new
+    #     if session[:member_id]
+    #         member = Member.find(session[:member_id])
+    #     end
+    # end
     
     def create
         # member = Member.create(member_params)
