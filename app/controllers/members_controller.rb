@@ -15,7 +15,7 @@ class MembersController < ApplicationController
     def create
         # member = Member.create(member_params)
         member = Member.find_or_create_by(googleId: params[:googleId]) do |member|
-            member.name = params[:name]
+            params[:name].present? member.name = params[:name]
             member.email = params[:email]
             member.phone = params[:phone]
             member.venmo = params[:venmo]
@@ -33,6 +33,7 @@ class MembersController < ApplicationController
 
     def update
         # member = Member.find(params[:id])
+
         # could use below, but it is unsecure
         member = Member.find_by(googleId: params[:id])
         member.update(member_params)
