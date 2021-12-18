@@ -15,12 +15,13 @@ class MembersController < ApplicationController
     def create
         # member = Member.create(member_params)
         member = Member.find_or_create_by(googleId: params[:googleId]) do |member|
-            params[:name].present? member.name = params[:name]
+            # params[:name].present? member.name = params[:name]
+            member.name = params[:name]
             member.email = params[:email]
             member.phone = params[:phone]
             member.venmo = params[:venmo]
-            member.selling = params[:selling]
-            member.buying = params[:buying]
+            member.active = params[:active]
+            member.mode = params[:mode]
             member.amount = params[:amount]
             member.location = params[:location]
         end
@@ -47,7 +48,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:googleId, :name, :email, :phone, :venmo, :selling, :buying, :amount, :location)
+        params.require(:member).permit(:googleId, :name, :email, :phone, :venmo, :active, :mode, :amount, :location)
     end
 
 end
