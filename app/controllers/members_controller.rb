@@ -14,10 +14,11 @@ class MembersController < ApplicationController
     
     def create
         # member = Member.create(member_params)
+
         member = Member.find_or_create_by(googleId: params[:googleId]) do |member|
-            # params[:name].present? member.name = params[:name]
             member.name = params[:name]
             member.email = params[:email]
+            member.image = params[:image]
             member.phone = params[:phone]
             member.venmo = params[:venmo]
             member.active = params[:active]
