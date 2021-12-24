@@ -41,10 +41,12 @@ class MembersController < ApplicationController
         member.update(member_params)
     end
 
-    # def show
-    #     member = Member.find(params[:id])
-    #     render json: member
-    # end
+    def show
+        # member = Member.find(params[:id])
+
+        member = Member.find_by(googleId: params[:id])
+        render json: member
+    end
 
     private
 
