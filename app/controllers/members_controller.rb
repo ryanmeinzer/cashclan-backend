@@ -51,7 +51,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:googleId, :name, :email, :phone, :venmo, :active, :mode, :amount, :location)
+        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :location)
     end
 
 end
