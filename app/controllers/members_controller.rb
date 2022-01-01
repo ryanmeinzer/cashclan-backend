@@ -24,6 +24,7 @@ class MembersController < ApplicationController
             member.active = params[:active]
             member.mode = params[:mode]
             member.amount = params[:amount]
+            member.premium = params[:premium]
             member.location = params[:location]
         end
 
@@ -51,7 +52,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :location)
+        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :premium, :location)
     end
 
 end
