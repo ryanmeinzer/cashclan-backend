@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_30_073537) do
+ActiveRecord::Schema.define(version: 2021_12_30_073538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(version: 2021_12_30_073537) do
     t.boolean "active"
     t.string "image"
     t.integer "premium"
+    t.boolean "meeting"
+    t.string "outfitTop"
+    t.string "outfitBottom"
+    t.string "outfitShoes"
   end
 
   create_table "transactions", force: :cascade do |t|
