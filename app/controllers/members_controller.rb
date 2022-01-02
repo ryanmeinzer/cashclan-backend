@@ -26,10 +26,6 @@ class MembersController < ApplicationController
             member.amount = params[:amount]
             member.premium = params[:premium]
             member.location = params[:location]
-            member.meeting = params[:meeting]
-            member.outfitTop = params[:outfitTop]
-            member.outfitBottom = params[:outfitBottom]
-            member.outfitShoes = params[:outfitShoes]
         end
 
         # for sessions (incomplete)
