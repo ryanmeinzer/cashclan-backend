@@ -26,6 +26,10 @@ class MembersController < ApplicationController
             member.amount = params[:amount]
             member.premium = params[:premium]
             member.location = params[:location]
+            member.meeting = params[:meeting]
+            member.outfitTop = params[:outfitTop]
+            member.outfitBottom = params[:outfitBottom]
+            member.outfitShoes = params[:outfitShoes]
         end
 
         # for sessions (incomplete)
@@ -52,7 +56,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :premium, :location)
+        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :premium, :location, :meeting, :outfitTop, :outfitBottom, :outfitShoes)
     end
 
 end
