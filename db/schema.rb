@@ -29,10 +29,6 @@ ActiveRecord::Schema.define(version: 2021_12_30_073538) do
     t.boolean "active"
     t.string "image"
     t.integer "premium"
-    t.boolean "meeting"
-    t.string "outfitTop"
-    t.string "outfitBottom"
-    t.string "outfitShoes"
   end
 
   create_table "transactions", force: :cascade do |t|
