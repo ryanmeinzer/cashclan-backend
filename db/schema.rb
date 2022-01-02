@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2021_12_30_073538) do
   create_table "members", force: :cascade do |t|
     t.string "name"
     t.bigint "phone"
-    t.string "venmo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "amount"

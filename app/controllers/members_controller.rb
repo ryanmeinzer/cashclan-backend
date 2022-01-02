@@ -20,7 +20,6 @@ class MembersController < ApplicationController
             member.email = params[:email]
             member.image = params[:image]
             member.phone = params[:phone]
-            member.venmo = params[:venmo]
             member.active = params[:active]
             member.mode = params[:mode]
             member.amount = params[:amount]
@@ -52,7 +51,7 @@ class MembersController < ApplicationController
     private
 
     def member_params
-        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :venmo, :active, :mode, :amount, :premium, :location, :meeting, :outfitTop, :outfitBottom, :outfitShoes)
+        params.require(:member).permit(:googleId, :name, :email, :image, :phone, :active, :mode, :amount, :premium, :location)
     end
 
 end
