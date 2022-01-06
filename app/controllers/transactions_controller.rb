@@ -5,6 +5,7 @@ class TransactionsController < ApplicationController
         render json: transactions
     end
     
+    # ToDo - find or create a transaction (vs. just create)
     def create
         transaction = Transaction.create(transaction_params)
         # render json: transaction
@@ -25,7 +26,7 @@ class TransactionsController < ApplicationController
     private
 
     def transaction_params
-        params.require(:transaction).permit(:seller_id, :buyer_id, :seller_confirmed, :buyer_confirmed, :status, :amount, :location, :seller_name)
+        params.require(:transaction).permit(:seller_id, :buyer_id, :seller_confirmed, :buyer_confirmed, :status, :amount, :location)
     end
 
 end
