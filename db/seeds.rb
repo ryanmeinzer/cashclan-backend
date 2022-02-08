@@ -8,5 +8,5 @@ Transaction.destroy_all
 end
 
 30.times do
-    Transaction.create(seller_id: Member.all.sample.id, buyer_id: Member.all.sample.id, seller_confirmed: rand(2) == 1, buyer_confirmed: rand(2) == 1, status: 'pending', amount: Faker::Number.between(from: 1, to: 300), location: ["McTeague's Saloon", 'Teeth', 'Noc Noc'].sample)
+    Transaction.create(seller_id: Member.all.sample.id, buyer_id: Member.all.sample.id, seller_confirmed: rand(2) == 1, buyer_confirmed: rand(2) == 1, status: 'pending', amount: Faker::Number.between(from: 1, to: 300), premium: Faker::Number.between(from: 1, to: 10), location: ["McTeague's Saloon", 'Teeth', 'Noc Noc'].sample)
 end

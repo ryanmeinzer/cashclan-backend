@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 2021_12_30_073538) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "seller_id"
     t.integer "buyer_id"
+    t.integer "premium"
+    t.integer "cost"
+    t.integer "profit"
+    t.integer "savings"
+    t.integer "buyer_offer_amount"
+    t.integer "buyer_offer_premium"
+    t.integer "seller_offer_amount"
+    t.integer "seller_offer_premium"
   end
 
 end
