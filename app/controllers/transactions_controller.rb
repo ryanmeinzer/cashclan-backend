@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
         # find or create where the user's last transaction isn't completed and their match is equal to their params match
 
 
-        transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[seller_id], :amount => params[amount]).first_or_create do |transaction|
+        transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).first_or_create do |transaction|
 
             amount: params[:amount]
             premium: params[:premium]
