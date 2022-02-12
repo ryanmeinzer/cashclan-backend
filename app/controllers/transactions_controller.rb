@@ -15,24 +15,24 @@ class TransactionsController < ApplicationController
         # transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).first_or_create(transaction_params)
 
         transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).first_or_create do |transaction|
-            amount: params[:amount]
-            premium: params[:premium]
-            cost: params[:cost]
-            profit: params[:profit]
-            savings: params[:savings]
-            buyer_offer_amount: params[:buyer_offer_amount]
-            buyer_offer_premium: params[:buyer_offer_premium]
-            seller_offer_amount: params[:seller_offer_amount]
-            seller_offer_premium: params[:seller_offer_premium]
-            seller_id: params[:seller_id]
-            buyer_id: params[:buyer_id]
+            transaction.amount: params[:amount]
+            transaction.premium: params[:premium]
+            transaction.cost: params[:cost]
+            transaction.profit: params[:profit]
+            transaction.savings: params[:savings]
+            transaction.buyer_offer_amount: params[:buyer_offer_amount]
+            transaction.buyer_offer_premium: params[:buyer_offer_premium]
+            transaction.seller_offer_amount: params[:seller_offer_amount]
+            transaction.seller_offer_premium: params[:seller_offer_premium]
+            transaction.seller_id: params[:seller_id]
+            transaction.buyer_id: params[:buyer_id]
             # seller_confirmed: params[:seller_confirmed] ? params[:seller_confirmed] : false
             # buyer_confirmed: params[:buyer_confirmed] ? params[:buyer_confirmed] : false
             # status: seller_confirmed && buyer_confirmed ? 'complete' : 'pending'
-            seller_confirmed: params[:seller_confirmed]
-            buyer_confirmed: params[:buyer_confirmed]
-            status: params[:status]
-            location: params[:location]
+            transaction.seller_confirmed: params[:seller_confirmed]
+            transaction.buyer_confirmed: params[:buyer_confirmed]
+            transaction.status: params[:status]
+            transaction.location: params[:location]
 
         # @member_last_transaction = Transaction.find(params[:member_id]).transactions.last
         # @transaction = Transaction.where(member_id: params[:seller_id || :buyer_id])
