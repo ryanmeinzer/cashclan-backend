@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
 
     def index
-        transactions = Transaction.all.sort_by(&:created_at)
+        transactions = Transaction.all.order(created_at: :desc)
         render json: transactions
     end
     
