@@ -40,7 +40,7 @@ class TransactionsController < ApplicationController
         # @transaction = Transaction.where(member_id: params[:seller_id || :buyer_id])
         # transaction = Transaction.find_or_create_by(params[:id]) do |member|
 
-        end
+        # end
 
 
     end
