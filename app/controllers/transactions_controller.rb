@@ -33,7 +33,8 @@ class TransactionsController < ApplicationController
         # @member_last_transaction = Transaction.find(params[:member_id]).transactions.last
         # @transaction = Transaction.where(member_id: params[:seller_id || :buyer_id])
         # transaction = Transaction.find_or_create_by(params[:id]) do |member|
-        end
+
+        # end
 
 
     end
