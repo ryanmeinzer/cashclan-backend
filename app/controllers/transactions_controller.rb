@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
         # the below works, but doesn't update the db as it finds the current transaction
         # transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).first_or_create(transaction_params)
 
-        transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).first_or_create do |transaction|
+        transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).find_or_create do |transaction|
             transaction.amount: params[:amount]
             transaction.premium: params[:premium]
             transaction.cost: params[:cost]
