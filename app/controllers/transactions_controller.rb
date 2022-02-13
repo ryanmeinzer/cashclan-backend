@@ -19,6 +19,7 @@ class TransactionsController < ApplicationController
         # status: seller_confirmed && buyer_confirmed ? 'complete' : 'pending'
 
         if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).exists?
+            transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount])
             transaction.update_attribute(:seller_confirmed, true)
             transaction.update_attribute(:buyer_confirmed, true)
             transaction.update_attribute(:status, 'complete')
