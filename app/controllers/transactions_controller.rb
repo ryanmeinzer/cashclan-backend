@@ -19,8 +19,9 @@ class TransactionsController < ApplicationController
         # status: seller_confirmed && buyer_confirmed ? 'complete' : 'pending'
 
         if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount]).exists?
-            transaction = Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount])
-            transaction.update_attributes(:seller_confirmed => true, :buyer_confirmed => true, :status => 'complete')
+            transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
+            # transaction.update_attributes(:seller_confirmed => true, :buyer_confirmed => true, :status => 'complete')
+            transation.update(transaction_params)
             # transaction.update_attribute(:seller_confirmed, true)
             # transaction.update_attribute(:buyer_confirmed, true)
             # transaction.update_attribute(:status, 'complete')
@@ -59,7 +60,7 @@ class TransactionsController < ApplicationController
 
     def update
         transaction = Transaction.find(params[:id])
-        transaction.update(transaction_params)
+        transaction.update(seller_confirmed: true, buyer_confirmed: true, status: 'complete')
         # render json: transaction
     end
 
