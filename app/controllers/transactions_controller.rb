@@ -21,8 +21,8 @@ class TransactionsController < ApplicationController
 
     def show
         transaction = Transaction.find(params[:id])
-        render json: transaction.seller.name
-        # render json: transaction
+        render json: transaction
+        # render json: transaction.seller.name
     end
 
     private
