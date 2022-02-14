@@ -13,6 +13,10 @@ class TransactionsController < ApplicationController
         #     Transaction.create(transaction_params)
         # end
         Transaction.create(transaction_params)
+        seller = Member.where(:seller_id => params[seller_id])
+        seller.update(active: false)
+        buyer = Member.where(:buyer_id => params[buyer_id])
+        buyer.update(active: false)
     end
 
     # def update
