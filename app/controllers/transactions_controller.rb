@@ -6,12 +6,13 @@ class TransactionsController < ApplicationController
     end
     
     def create
-        if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount], status: 'pending').exists?
-            transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
-            transaction.update(seller_confirmed: true, buyer_confirmed: true, status: 'complete')
-        else
-            Transaction.create(transaction_params)
-        end
+        # if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount], status: 'pending').exists?
+        #     transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
+        #     transaction.update(seller_confirmed: true, buyer_confirmed: true, status: 'complete')
+        # else
+        #     Transaction.create(transaction_params)
+        # end
+        Transaction.create(transaction_params)
     end
 
     # def update
