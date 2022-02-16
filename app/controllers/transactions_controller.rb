@@ -6,8 +6,8 @@ class TransactionsController < ApplicationController
     end
     
     # ToDo - refactor to find_or_create pending Transaction with match for either party to confirm as complete
-    # transaction = Transaction.find_or_create_by(params[:id]) do |transaction|
     def create
+        Transaction.find_or_create_by(transaction_params)
         # if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount], status: 'pending').exists?
         #     transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
         #     transaction.update(seller_confirmed: true, buyer_confirmed: true, status: 'complete')
@@ -16,7 +16,7 @@ class TransactionsController < ApplicationController
         #     # buyer = Member.find_by(buyer_id: params[:buyer_id])
         #     # buyer.update(active: false)
         # else
-            Transaction.create(transaction_params)
+            # Transaction.create(transaction_params)
         # end
     end
 
