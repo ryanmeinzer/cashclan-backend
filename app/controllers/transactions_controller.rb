@@ -6,6 +6,7 @@ class TransactionsController < ApplicationController
     end
     
     # ToDo - refactor to find_or_create pending Transaction with match for either party to confirm as complete
+    # transaction = Transaction.find_or_create_by(params[:id]) do |transaction|
     def create
         # if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount], status: 'pending').exists?
         #     transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
@@ -19,10 +20,11 @@ class TransactionsController < ApplicationController
         # end
     end
 
-    # def update
-    #     transaction = Transaction.find(params[:id])
-    #     # render json: transaction
-    # end
+    def update
+        transaction = Transaction.find(params[:id])
+        transaction.update(transaction_params)
+        # render json: transaction
+    end
 
     def show
         transaction = Transaction.find(params[:id])
