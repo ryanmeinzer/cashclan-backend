@@ -33,6 +33,11 @@ class TransactionsController < ApplicationController
         # render json: transaction.seller.name
     end
 
+    def destroy
+        transaction = Transaction.find(params[:id])
+        transaction.destroy
+    end
+
     private
 
     def transaction_params
