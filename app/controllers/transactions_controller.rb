@@ -27,8 +27,8 @@ class TransactionsController < ApplicationController
         transaction.update(transaction_params)
         buyer = Member.find(params[:buyer_id])
         seller = Member.find(params[:seller_id])
-        buyer.update(active: false)
-        seller.update(active: false)
+        buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+        seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
     end
 
     def show
