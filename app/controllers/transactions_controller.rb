@@ -25,6 +25,10 @@ class TransactionsController < ApplicationController
     def update
         transaction = Transaction.find(params[:id])
         transaction.update(transaction_params)
+        buyer = Member.find(params[:buyer_id])
+        seller = Member.find(params[:seller_id])
+        buyer.update(active: false)
+        seller.update(active: false)
     end
 
     def show
@@ -36,6 +40,7 @@ class TransactionsController < ApplicationController
     def destroy
         transaction = Transaction.find(params[:id])
         transaction.destroy
+        render json: transaction
     end
 
     private
