@@ -12,7 +12,8 @@ class TransactionsController < ApplicationController
         if pending_transaction.exists?
             render json: pending_transaction
         else
-            Transaction.create(transaction_params)
+            transaction = Transaction.create(transaction_params)
+            render json: transaction
         end
 
         # Transaction.find_or_create_by(transaction_params)
