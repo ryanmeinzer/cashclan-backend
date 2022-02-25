@@ -7,14 +7,25 @@ class TransactionsController < ApplicationController
     
     def create
         # ensure new transaction is created only if it's a new transaction (also handled on FE)
-        pending_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
-        if pending_transaction
-            render json: pending_transaction
+        pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
+        pending_transaction = Transaction.find_by(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.find_by(seller_id: params[:buyer_id], status: 'pending'))
+        if pending_identical_transaction
+            render json: pending_identical_transaction
+        elsif pending_transaction
+            return
         else
             transaction = Transaction.create(transaction_params)
             render json: transaction
         end
     end
+
+   if test
+       
+   elsif 
+       
+   else
+       
+   end
 
     def update
         transaction = Transaction.find(params[:id])
