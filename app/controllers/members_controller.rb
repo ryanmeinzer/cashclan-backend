@@ -40,7 +40,7 @@ class MembersController < ApplicationController
         member = Member.find_by(googleId: params[:id])
         member.update(member_params)
         # delete member's pending transaction(s) if they unpublish their offer
-        if !member.active
+        if member.active == false
             Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
     end
