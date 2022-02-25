@@ -17,13 +17,8 @@ class TransactionsController < ApplicationController
     end
 
     def update
-
-        transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id],status: 'pending')
+        transaction = Transaction.find(params[:id])
         transaction.update(transaction_params)
-
-        # ToDo - swap above with below once assuredly passing (pending or new) transaction id
-        # transaction = Transaction.find(params[:id])
-        # transaction.update(transaction_params)
 
         buyer = Member.find(params[:buyer_id])
         seller = Member.find(params[:seller_id])
