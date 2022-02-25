@@ -19,14 +19,6 @@ class TransactionsController < ApplicationController
         end
     end
 
-   if test
-       
-   elsif 
-       
-   else
-       
-   end
-
     def update
         transaction = Transaction.find(params[:id])
         transaction.update(transaction_params)
