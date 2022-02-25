@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
         # ToDo - ensure members only ever have a single pending transaction
 
         pending_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
-        if pending_transaction.exists?
+        if pending_transaction
             render json: pending_transaction
         else
             transaction = Transaction.create(transaction_params)
