@@ -8,17 +8,20 @@ class TransactionsController < ApplicationController
     def create
         # ToDo - ensure members only ever have a single pending transaction
 
-        transaction = Transaction.find(params[:id])
-        if transaction.exists?
-            render json: transaction
-        else
-            transaction = Transaction.create(transaction_params)
-            render json: transaction
-        end
+        transaction = Transaction.find_or_create_by(transaction_params)
+        render json: transaction
 
         # Transaction.find_or_create_by(transaction_params)
         # transaction = Transaction.find_by(transaction_params)
         # render json: transaction
+
+        # transaction = Transaction.find(params[:id])
+        # if transaction.exists?
+        #     render json: transaction
+        # else
+        #     transaction = Transaction.create(transaction_params)
+        #     render json: transaction
+        # end
 
         # if Transaction.where(:buyer_id => params[:buyer_id], :seller_id => params[:seller_id], :amount => params[:amount], status: 'pending').exists?
         #     transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], amount: params[:amount])
