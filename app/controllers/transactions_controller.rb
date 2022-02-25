@@ -16,13 +16,17 @@ class TransactionsController < ApplicationController
     end
 
     def update
-        transaction = Transaction.where(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending')
-        transaction.update(transaction_params)
+        # transaction = Transaction.where(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending')
+        # transaction.update(transaction_params)
+        pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
+        pending_identical_transaction.update(transaction_params)
 
-        buyer = Member.find(params[:buyer_id])
-        seller = Member.find(params[:seller_id])
-        buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
-        seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+        if pending_identical_transaction.present?
+            buyer = Member.find(params[:buyer_id])
+            seller = Member.find(params[:seller_id])
+            buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+            seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+        end
     end
 
     def show
