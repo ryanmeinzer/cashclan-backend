@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
         #     transaction = Transaction.create(transaction_params)
         #     render json: transaction
         # end
-        if pending_identical_transaction == false && pending_transaction == false
+        if !pending_identical_transaction and !pending_transactio
             transaction = Transaction.create(transaction_params)
             render json: transaction
         end
