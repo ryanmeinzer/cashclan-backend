@@ -17,10 +17,10 @@ class TransactionsController < ApplicationController
         #     transaction = Transaction.create(transaction_params)
         #     render json: transaction
         # end
-        # if !pending_identical_transaction and !pending_transaction
+        if !pending_identical_transaction.present? and !pending_transaction.present?
             transaction = Transaction.create(transaction_params)
             render json: transaction
-        # end
+        end
     end
 
     def update
