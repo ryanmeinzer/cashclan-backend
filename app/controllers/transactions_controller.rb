@@ -16,8 +16,6 @@ class TransactionsController < ApplicationController
     end
 
     def update
-        # transaction = Transaction.where(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending')
-        # transaction.update(transaction_params)
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
         pending_identical_transaction.update(transaction_params)
 
@@ -32,7 +30,6 @@ class TransactionsController < ApplicationController
     def show
         transaction = Transaction.find(params[:id])
         render json: transaction
-        # render json: transaction.seller.name
     end
 
     def destroy
