@@ -18,10 +18,10 @@ class TransactionsController < ApplicationController
         if !pending_identical_transaction.present? and !pending_transaction.present?
             transaction = Transaction.create(transaction_params)
 
-            buyer_phone = Member.find_by(params[:buyer_id]).phone
-            buyer_name = Member.find_by(params[:buyer_id]).name
-            seller_phone = Member.find_by(params[:seller_id]).phone
-            seller_name = Member.find_by(params[:seller_id]).name
+            buyer_phone = Member.find(params[:buyer_id]).phone
+            buyer_name = Member.find(params[:buyer_id]).name
+            seller_phone = Member.find(params[:seller_id]).phone
+            seller_name = Member.find(params[:seller_id]).name
             account_sid = ENV['TWILIO_ACCOUNT_SID']
             auth_token = ENV['TWILIO_AUTH_TOKEN']
             twilio_number = ENV['TWILIO_NUMBER']
