@@ -29,13 +29,13 @@ class TransactionsController < ApplicationController
             client = Twilio::REST::Client.new(account_sid, auth_token)
 
             # send buyer an SMS reminder if they have a phone
-            if buyer_phone.present?
-                client.messages.create(
-                    body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
-                    from: twilio_number,
-                    to: "+#{buyer_phone}"
-                )
-            end
+            # if buyer_phone.present?
+            #     client.messages.create(
+            #         body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
+            #         from: twilio_number,
+            #         to: "+#{buyer_phone}"
+            #     )
+            # end
             # send seller an SMS reminder if they have a phone
             if seller_phone.present?
                 client.messages.create(
