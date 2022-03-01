@@ -1,4 +1,5 @@
 # Download the helper library from https://www.twilio.com/docs/ruby/install
+require 'dotenv/load'
 require 'rubygems'
 require 'twilio-ruby'
 
@@ -10,9 +11,9 @@ auth_token = ENV['TWILIO_AUTH_TOKEN']
 
 message = @client.messages
   .create(
-     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-     from: '+15017122661',
-     to: '+15558675310'
+     body: "You've been matched! Meet now at the ATM.",
+     from: '+14159805035',
+     to: '+12152857321'
    )
 
 puts message.sid
