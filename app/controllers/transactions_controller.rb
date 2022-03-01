@@ -49,10 +49,6 @@ class TransactionsController < ApplicationController
         end
     end
 
-    after_create do
-
-    end
-
     def update
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
         pending_identical_transaction.update(transaction_params)
