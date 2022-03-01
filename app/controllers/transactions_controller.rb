@@ -1,3 +1,7 @@
+require 'dotenv/load'
+require 'rubygems'
+require 'twilio-ruby'
+
 class TransactionsController < ApplicationController
 
     def index
@@ -5,6 +9,7 @@ class TransactionsController < ApplicationController
         render json: transactions
     end
     
+    # ToDo - check if either party has a phone number and if so, send an SMS
     def create
         # ensure new transaction is created only if it's a new transaction (also handled on FE) and only if both parties do not have a pending transaction
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
@@ -13,6 +18,20 @@ class TransactionsController < ApplicationController
             transaction = Transaction.create(transaction_params)
             render json: transaction
         end
+
+        account_sid = ENV['TWILIO_ACCOUNT_SID']
+        auth_token = ENV['TWILIO_AUTH_TOKEN']
+        twilio_number = ENV['TWILIO_NUMBER']
+        test_number = ENV['TEST_NUMBER']
+        @client = Twilio::REST::Client.new(account_sid, auth_token)
+        
+        message = @client.messages
+            .create(
+                body: "You've been matched! Meet now at the ATM.",
+                from: twilio_number,
+                to: test_number
+            )
+        puts message.sid
     end
 
     def update
