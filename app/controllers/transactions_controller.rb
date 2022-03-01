@@ -1,4 +1,4 @@
-# require 'dotenv/load'
+# no need to include below as Heroku handles with secured config vars
 # require '.env'
 require 'rubygems'
 require 'twilio-ruby'
@@ -18,20 +18,39 @@ class TransactionsController < ApplicationController
         if !pending_identical_transaction.present? and !pending_transaction.present?
             transaction = Transaction.create(transaction_params)
 
+            buyer_phone = Member.find_by(params[:buyer_id]).phone
+            buyer_name = Member.find_by(params[:buyer_id]).name
+            seller_phone = Member.find_by(params[:seller_id]).phone
+            seller_name = Member.find_by(params[:seller_id]).name
             account_sid = ENV['TWILIO_ACCOUNT_SID']
             auth_token = ENV['TWILIO_AUTH_TOKEN']
             twilio_number = ENV['TWILIO_NUMBER']
-            test_number = ENV['TEST_NUMBER']
+            # test_number = ENV['TEST_NUMBER']
             client = Twilio::REST::Client.new(account_sid, auth_token)
-            
-            client.messages.create(
-                body: "You've been matched! Meet now at the ATM.",
-                from: twilio_number,
-                to: test_number
-            )
+
+            # send buyer an SMS reminder if they have a phone
+            if buyer_phone.present?
+                client.messages.create(
+                    body: `You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.`,
+                    from: twilio_number,
+                    to: buyer_phone
+                )
+            end
+            # send seller an SMS reminder if they have a phone
+            if seller_phone.present?
+                client.messages.create(
+                    body: `You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.`,
+                    from: twilio_number,
+                    to: seller_phone
+                )
+            end
 
             render json: transaction
         end
+    end
+
+    after_create do
+
     end
 
     def update
