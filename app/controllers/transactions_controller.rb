@@ -16,20 +16,21 @@ class TransactionsController < ApplicationController
         pending_transaction = Transaction.where(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.where(seller_id: params[:buyer_id], status: 'pending')).or(Transaction.where(buyer_id: params[:seller_id], status: 'pending')).or(Transaction.where(seller_id: params[:seller_id], status: 'pending'))
         if !pending_identical_transaction.present? and !pending_transaction.present?
             transaction = Transaction.create(transaction_params)
+
+            account_sid = ENV['TWILIO_ACCOUNT_SID']
+            auth_token = ENV['TWILIO_AUTH_TOKEN']
+            twilio_number = ENV['TWILIO_NUMBER']
+            test_number = ENV['TEST_NUMBER']
+            client = Twilio::REST::Client.new(account_sid, auth_token)
+            
+            client.messages.create(
+                body: "You've been matched! Meet now at the ATM.",
+                from: twilio_number,
+                to: test_number
+            )
+
             render json: transaction
         end
-
-        account_sid = ENV['TWILIO_ACCOUNT_SID']
-        auth_token = ENV['TWILIO_AUTH_TOKEN']
-        twilio_number = ENV['TWILIO_NUMBER']
-        test_number = ENV['TEST_NUMBER']
-        client = Twilio::REST::Client.new(account_sid, auth_token)
-        
-        client.messages.create(
-            body: "You've been matched! Meet now at the ATM.",
-            from: twilio_number,
-            to: test_number
-        )
     end
 
     def update
