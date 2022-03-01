@@ -10,7 +10,6 @@ class TransactionsController < ApplicationController
         render json: transactions
     end
     
-    # ToDo - check if either party has a phone number and if so, send an SMS
     def create
         # ensure new transaction is created only if it's a new transaction (also handled on FE) and only if both parties do not have a pending transaction
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
