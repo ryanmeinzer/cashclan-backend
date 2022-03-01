@@ -1,4 +1,5 @@
-require 'dotenv/load'
+# require 'dotenv/load'
+require './env'
 require 'rubygems'
 require 'twilio-ruby'
 
