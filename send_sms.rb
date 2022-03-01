@@ -15,7 +15,7 @@ message = @client.messages
   .create(
      body: "You've been matched! Meet now at the ATM.",
      from: twilio_number,
-     to: test_number
+     to: "+#{test_number}"
    )
 
 puts message.sid
