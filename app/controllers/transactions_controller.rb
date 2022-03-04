@@ -15,6 +15,9 @@ class TransactionsController < ApplicationController
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
         pending_transaction = Transaction.where(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.where(seller_id: params[:buyer_id], status: 'pending')).or(Transaction.where(buyer_id: params[:seller_id], status: 'pending')).or(Transaction.where(seller_id: params[:seller_id], status: 'pending'))
         if !pending_identical_transaction.present? and !pending_transaction.present?
+            
+            # ToDo - investigate moving this down to the bottom of the function scope
+            transaction = Transaction.create(transaction_params)
 
             buyer_phone = Member.find(params[:buyer_id]).phone
             buyer_name = Member.find(params[:buyer_id]).name
@@ -43,8 +46,6 @@ class TransactionsController < ApplicationController
                 )
             end
 
-            # ToDo - investigate moving this down to the bottom of the function scope
-            transaction = Transaction.create(transaction_params)
             render json: transaction
         end
     end
