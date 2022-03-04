@@ -20,6 +20,8 @@ class TransactionsController < ApplicationController
 
             buyer_phone = Member.find(params[:buyer_id]).phone
             seller_phone = Member.find(params[:seller_id]).phone
+            buyer_name = Member.find(params[:buyer_id]).name
+            seller_name = Member.find(params[:seller_id]).name
             account_sid = ENV['TWILIO_ACCOUNT_SID']
             auth_token = ENV['TWILIO_AUTH_TOKEN']
             twilio_number = ENV['TWILIO_NUMBER']
@@ -27,8 +29,6 @@ class TransactionsController < ApplicationController
 
             # send buyer an SMS reminder if they have a phone
             if buyer_phone.present?
-                buyer_name = Member.find(params[:buyer_id]).name
-                seller_name = Member.find(params[:seller_id]).name
                 client = Twilio::REST::Client.new(account_sid, auth_token)
                     client.messages.create(
                         body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
@@ -38,8 +38,6 @@ class TransactionsController < ApplicationController
             end
             # send seller an SMS reminder if they have a phone
             if seller_phone.present?
-                buyer_name = Member.find(params[:buyer_id]).name
-                seller_name = Member.find(params[:seller_id]).name
                 client.messages.create(
                     body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
                     from: twilio_number,
