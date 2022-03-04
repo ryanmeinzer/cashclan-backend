@@ -39,10 +39,8 @@ class MembersController < ApplicationController
         puts session
     end
 
-    # ToDo - use member ID in BE session vs. googleId for more security
     def update
         member = Member.find(params[:id])
-        # member = Member.find_by(googleId: params[:id])
         member.update(member_params)
         # delete member's pending transaction(s) if they unpublish their offer
         if member.active == false
@@ -50,9 +48,7 @@ class MembersController < ApplicationController
         end
     end
 
-    # ToDo - use member ID in BE session vs. googleId for more security
     def show
-        # member = Member.find_by(googleId: params[:id])
         member = Member.find(params[:id])
         render json: member
     end
