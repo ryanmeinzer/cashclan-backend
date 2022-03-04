@@ -37,15 +37,15 @@ class TransactionsController < ApplicationController
                     )
             end
             # send seller an SMS reminder if they have a phone
-            # if seller_phone.present?
-            #     buyer_name = Member.find(params[:buyer_id]).name
-            #     seller_name = Member.find(params[:seller_id]).name
-            #     client.messages.create(
-            #         body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
-            #         from: twilio_number,
-            #         to: "+#{seller_phone}"
-            #     )
-            # end
+            if seller_phone.present?
+                buyer_name = Member.find(params[:buyer_id]).name
+                seller_name = Member.find(params[:seller_id]).name
+                client.messages.create(
+                    body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
+                    from: twilio_number,
+                    to: "+#{seller_phone}"
+                )
+            end
 
             render json: transaction
         end
