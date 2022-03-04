@@ -27,24 +27,24 @@ class TransactionsController < ApplicationController
             twilio_number = ENV['TWILIO_NUMBER']
             # test_number = ENV['TEST_NUMBER']
             
-            if buyer_phone.present? or seller_phone.present?
-                # send buyer an SMS reminder if they have a phone
-                if buyer_phone.present?
-                    client = Twilio::REST::Client.new(account_sid, auth_token)
-                        client.messages.create(
-                            body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
-                            from: twilio_number,
-                            to: "+#{buyer_phone}"
-                        )
-                end
-                # send seller an SMS reminder if they have a phone
-                if seller_phone.present?
+            # send buyer an SMS reminder if they have a phone
+            if buyer_phone.present?
+                client = Twilio::REST::Client.new(account_sid, auth_token)
                     client.messages.create(
-                    body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
-                    from: twilio_number,
-                    to: "+#{seller_phone}"
+                        body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
+                        from: twilio_number,
+                        to: "+#{buyer_phone}"
                     )
-                end
+                    puts message.status
+            end
+            # send seller an SMS reminder if they have a phone
+            if seller_phone.present?
+                client.messages.create(
+                body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
+                from: twilio_number,
+                to: "+#{seller_phone}"
+                )
+                puts message.status
             end
 
             render json: transaction
