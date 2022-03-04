@@ -8,7 +8,6 @@ class MembersController < ApplicationController
     end
     
     def create
-
         # validate the google ID token
         tokenId = params[:tokenId]
         response = HTTP.post("https://oauth2.googleapis.com/tokeninfo?id_token=#{tokenId}")
@@ -32,14 +31,18 @@ class MembersController < ApplicationController
                 member.premium = params[:premium]
                 member.location = params[:location]
             end
+            # create session with member.id for future use
+            session[:member_id] = member.id
             # return the member for the FE to use for state
             render json: member
         end
+        puts session
     end
 
+    # ToDo - use member ID in BE session vs. googleId for more security
     def update
-        # ToDo - use member ID vs. googleId for more security
-        member = Member.find_by(googleId: params[:id])
+        member = Member.find(params[:id])
+        # member = Member.find_by(googleId: params[:id])
         member.update(member_params)
         # delete member's pending transaction(s) if they unpublish their offer
         if member.active == false
@@ -47,8 +50,10 @@ class MembersController < ApplicationController
         end
     end
 
+    # ToDo - use member ID in BE session vs. googleId for more security
     def show
-        member = Member.find_by(googleId: params[:id])
+        # member = Member.find_by(googleId: params[:id])
+        member = Member.find(params[:id])
         render json: member
     end
 
