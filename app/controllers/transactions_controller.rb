@@ -27,8 +27,8 @@ class TransactionsController < ApplicationController
             twilio_number = ENV['TWILIO_NUMBER']
             # test_number = ENV['TEST_NUMBER']
             
+            # send buyer an SMS reminder if they have a phone, rescuing exception to continue execution if Twilio API call fails
             begin
-                # send buyer an SMS reminder if they have a phone
                 if buyer_phone.present?
                     client = Twilio::REST::Client.new(account_sid, auth_token)
                         client.messages.create(
@@ -40,9 +40,9 @@ class TransactionsController < ApplicationController
             rescue => e
                 puts e
             end
-            
+
             begin
-                # send seller an SMS reminder if they have a phone
+                # send seller an SMS reminder if they have a phone, rescuing exception to continue execution if Twilio API call fails
                 if seller_phone.present?
                     client.messages.create(
                     body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
