@@ -7,7 +7,9 @@ class TransactionsController < ApplicationController
 
     def index
         transactions = Transaction.all.order(created_at: :desc)
-        render json: transactions
+        render json: transactions.to_json({
+            except: [:created_at, :updated_at]
+        })
     end
     
     def create
@@ -54,7 +56,9 @@ class TransactionsController < ApplicationController
                 puts e
             end
 
-            render json: transaction
+            render json: transaction.to_json({
+                except: [:created_at, :updated_at]
+            })
         end
     end
 
@@ -68,17 +72,24 @@ class TransactionsController < ApplicationController
             buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
             seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
         end
+        render json: transaction.to_json({
+            except: [:created_at, :updated_at]
+        })
     end
 
     def show
         transaction = Transaction.find(params[:id])
-        render json: transaction
+        render json: transaction.to_json({
+            except: [:created_at, :updated_at]
+        })
     end
 
     def destroy
         transaction = Transaction.find(params[:id])
         transaction.destroy
-        render json: transaction
+        render json: transaction.to_json({
+            except: [:created_at, :updated_at]
+        })
     end
 
     private
