@@ -57,7 +57,7 @@ class MembersController < ApplicationController
 
     def show
         member = Member.find(params[:id])
-        current_user = User.find_by_id(session[:current_member_id])
+        current_user = Member.find_by_id(session[:current_member_id])
         if member.id == current_user.id
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email]
