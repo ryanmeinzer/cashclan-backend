@@ -5,7 +5,7 @@ class MembersController < ApplicationController
     def index
         members = Member.all 
         render json: members.to_json({
-            except: [:created_at, :updated_at, :googleId, :phone, :email, :name, :image]
+            except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
         })
     end
     
@@ -37,7 +37,7 @@ class MembersController < ApplicationController
             session[:member_id] = member.id
             # return the member for the FE to use for state
             render json: member.to_json({
-                except: [:created_at, :updated_at, :googleId, :phone, :email, :name, :image]
+                except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
             })
         end
         puts session
@@ -51,14 +51,14 @@ class MembersController < ApplicationController
             Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
         render json: member.to_json({
-            except: [:created_at, :updated_at, :googleId, :phone, :email, :name, :image]
+            except: [:created_at, :updated_at, :googleId, :email, :phone, :name]
         })
     end
 
     def show
         member = Member.find(params[:id])
         render json: member.to_json({
-            except: [:created_at, :updated_at, :googleId, :email, :name]
+            except: [:created_at, :updated_at, :googleId, :email]
         })
     end
 
