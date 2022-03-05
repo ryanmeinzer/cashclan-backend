@@ -55,19 +55,19 @@ class MembersController < ApplicationController
         })
     end
 
+    # ToDo - only show phone if/for current member
     def show
         member = Member.find(params[:id])
-        current_member = Member.find(session[:current_member_id])
-        if member.id === current_member.id
-        # if params[:id] == session[:current_member_id]
+        # current_member = Member.find(session[:current_member_id])
+        # if member.id === current_member.id
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email]
             })
-        else
-            render json: member.to_json({
-                except: [:created_at, :updated_at, :googleId, :email, :phone]
-            })
-        end
+        # else
+        #     render json: member.to_json({
+        #         except: [:created_at, :updated_at, :googleId, :email, :phone]
+        #     })
+        # end
     end
 
     private
