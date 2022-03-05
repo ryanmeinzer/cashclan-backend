@@ -33,8 +33,8 @@ class MembersController < ApplicationController
                 member.premium = params[:premium]
                 member.location = params[:location]
             end
-            # create session with member.id for future use
-            session[:current_member_id] = member.id
+            # create session with member for future use
+            session[:current_member] = member
             # return the member for the FE to use for state
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email, :phone, :name]
@@ -57,8 +57,8 @@ class MembersController < ApplicationController
 
     def show
         member = Member.find(params[:id])
-        current_user = Member.find_by_id(session[:current_member_id])
-        if member.id == current_user.id
+        # current_member = Member.find_by_id(session[:current_member])
+        if member == session[:current_member]
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email]
             })
