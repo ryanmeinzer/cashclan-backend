@@ -38,7 +38,6 @@ class MembersController < ApplicationController
                 except: [:created_at, :updated_at, :googleId, :email, :phone, :name]
             })
         end
-        puts session
     end
 
     def update
