@@ -56,7 +56,7 @@ class MembersController < ApplicationController
     # ToDo - only show phone if/for current member
     def show
         member = Member.find(params[:id])
-        if params[:image].present?
+        if !params[:image].blank?
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email]
             })
