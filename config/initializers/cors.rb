@@ -20,13 +20,13 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
   end
-  allow do
-    origins 'https://cashclan.com'
+  # allow do
+  #   origins 'https://cashclan.com'
 
-    resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
-  end
+  #   resource '*',
+  #     headers: :any,
+  #     methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  # end
   allow do
     origins 'https://cashclan-backend.herokuapp.com'
 
