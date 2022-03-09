@@ -54,10 +54,17 @@ class MembersController < ApplicationController
     end
 
     def show
-        member = Member.find(params[:id])
-        render json: member.to_json({
-            except: [:created_at, :updated_at, :googleId, :email]
-        })
+        # validate the google ID token
+        tokenId = params[:tokenId]
+        response = HTTP.post("https://oauth2.googleapis.com/tokeninfo?id_token=#{tokenId}")
+
+        # if the token is valid, proceed to find or create member
+        if response.parse["email_verified"] == "true"
+            member = Member.find(params[:id])
+            render json: member.to_json({
+                except: [:created_at, :updated_at, :googleId, :email]
+            })
+        end
     end
 
     private
