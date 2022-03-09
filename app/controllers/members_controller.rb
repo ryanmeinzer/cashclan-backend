@@ -3,12 +3,10 @@ require 'http'
 class MembersController < ApplicationController
 
     def index
-        if session[:member_id]
-            members = Member.all 
-            render json: members.to_json({
-                except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
-            })
-        end
+        members = Member.all 
+        render json: members.to_json({
+            except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
+        })
     end
     
     def create
@@ -36,10 +34,6 @@ class MembersController < ApplicationController
                 member.location = params[:location]
             end
 
-            # make session for user
-            session[:member_id] = member.id
-            # puts session[:member_id]
-
             # return the member for the FE to use for state
             render json: member.to_json({
                 except: [:created_at, :updated_at, :googleId, :email, :phone, :name]
@@ -60,13 +54,10 @@ class MembersController < ApplicationController
     end
 
     def show
-        if session[:member_id]
-            member = Member.find(params[:id])
-            session[:member_id] = member.id
-            render json: member.to_json({
-                except: [:created_at, :updated_at, :googleId, :email]
-            })
-        end
+        member = Member.find(params[:id])
+        render json: member.to_json({
+            except: [:created_at, :updated_at, :googleId, :email]
+        })
     end
 
     private
