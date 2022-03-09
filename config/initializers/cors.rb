@@ -32,9 +32,11 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource '/members',
       headers: :any,
-      methods: [:options]
+      methods: [:options],
+      credentials: true
     resource '/transactions',
     headers: :any,
-    methods: [:options]
+    methods: [:options],
+    credentials: true
   end
 end
