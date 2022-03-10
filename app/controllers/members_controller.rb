@@ -56,7 +56,7 @@ class MembersController < ApplicationController
     def show
         member = Member.find(params[:id])
         render json: member.to_json({
-            except: [:created_at, :updated_at, :googleId, :email, :phone]
+            except: [:created_at, :updated_at, :googleId, :email]
         })
     end
 
