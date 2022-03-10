@@ -71,6 +71,7 @@ class TransactionsController < ApplicationController
             seller = Member.find(params[:seller_id])
             buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
             seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+            Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
         render json: transaction.to_json({
             except: [:created_at, :updated_at]
