@@ -69,8 +69,8 @@ class TransactionsController < ApplicationController
 
         buyer = Member.find(params[:buyer_id])
         seller = Member.find(params[:seller_id])
-        buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
-        seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
+        buyer.update(active: false, mode: '', amount: 60, premium: 5, location: '')
+        seller.update(active: false, mode: '', amount: 60, premium: 5, location: '')
 
         render json: pending_identical_transaction.to_json({
             except: [:created_at, :updated_at]
