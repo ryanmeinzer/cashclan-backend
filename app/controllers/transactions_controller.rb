@@ -69,6 +69,8 @@ class TransactionsController < ApplicationController
 
         buyer = Member.find(params[:buyer_id])
         seller = Member.find(params[:seller_id])
+        
+        # set to same default state as in FE component
         buyer.update(active: false, mode: '', amount: 60, premium: 5, location: '')
         seller.update(active: false, mode: '', amount: 60, premium: 5, location: '')
 
