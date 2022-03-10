@@ -64,16 +64,17 @@ class TransactionsController < ApplicationController
 
     def update
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
-        pending_identical_transaction.update(transaction_params)
 
         if pending_identical_transaction.present?
             buyer = Member.find(params[:buyer_id])
             seller = Member.find(params[:seller_id])
             buyer.update(active: false, mode: '', amount: 10, premium: 1, location: '')
             seller.update(active: false, mode: '', amount: 10, premium: 1, location: '')
-            Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
-        render json: transaction.to_json({
+
+        pending_identical_transaction.update(transaction_params)
+
+        render json: pending_identical_transaction.to_json({
             except: [:created_at, :updated_at]
         })
     end
