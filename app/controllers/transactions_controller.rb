@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
     end
 
     def update
-        # delete both members' duplicate pending transactions if either confirms transaction. This prevents potential duplicate transaction async issue when seller unpublishes, transation is deleted and would-be matching offer is matched with new transaction on both members/clients screens are visible and refresh simultaneously. Also as the aforementioned pending_identical_transaction is regardless always the single or first pending identical transaction).
+        # delete both members' duplicate pending transactions if either confirms transaction. This prevents rare yet potential duplicate transaction async issue - if seller unpublishes, the transation is deleted and would-be matching offer is matched with a new transaction created twice if both members/clients screens are visible and refresh simultaneously. Regardless, the pending_identical_transaction below will always be the single or first pending identical transaction to be updated.
         pending_transactions = Transaction.where(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.where(seller_id: params[:buyer_id], status: 'pending')).or(Transaction.where(buyer_id: params[:seller_id], status: 'pending')).or(Transaction.where(seller_id: params[:seller_id], status: 'pending'))
         if pending_transactions.count() > 1
             pending_transactions.last().destroy
