@@ -63,6 +63,12 @@ class TransactionsController < ApplicationController
     end
 
     def update
+        # delete both members' duplicate pending transactions if either confirms transaction. This prevents potential duplicate transaction async issue when seller unpublishes, transation is deleted and would-be matching offer is matched with new transaction on both members/clients screens are visible and refresh simultaneously. Also as the aforementioned pending_identical_transaction is regardless always the single or first pending identical transaction).
+        pending_transactions = Transaction.where(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.where(seller_id: params[:buyer_id], status: 'pending')).or(Transaction.where(buyer_id: params[:seller_id], status: 'pending')).or(Transaction.where(seller_id: params[:seller_id], status: 'pending'))
+        if pending_transactions.count() > 1
+            pending_transactions.last().destroy
+        end
+
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
 
         pending_identical_transaction.update(transaction_params)
@@ -73,12 +79,6 @@ class TransactionsController < ApplicationController
         # set to same default state as in FE component
         buyer.update(active: false, mode: '', amount: 60, premium: 5, location: '')
         seller.update(active: false, mode: '', amount: 60, premium: 5, location: '')
-
-        # delete both members' duplicate pending transactions if either confirms transaction (prevents potential duplicate transaction async issue in QA 5c, and as aforementioned pending_identical_transaction is regardless always the single or first pending identical transaction)
-        pending_transactions = Transaction.where(buyer_id: params[:buyer_id], status: 'pending').or(Transaction.where(seller_id: params[:buyer_id], status: 'pending')).or(Transaction.where(buyer_id: params[:seller_id], status: 'pending')).or(Transaction.where(seller_id: params[:seller_id], status: 'pending'))
-        if pending_transactions.count() > 1
-            pending_transactions.last().destroy
-        end
 
         render json: pending_identical_transaction.to_json({
             except: [:created_at, :updated_at]
