@@ -12,6 +12,7 @@ class TransactionsController < ApplicationController
         })
     end
     
+    # ToDo - prevent double/duplicate transaction from being created on mobile QA 5c
     def create
         # ensure new transaction is created only if it's a new transaction (also handled on FE) and only if both parties do not have a pending transaction
         pending_identical_transaction = Transaction.find_by(buyer_id: params[:buyer_id], seller_id: params[:seller_id], status: 'pending', amount: params[:amount], premium: params[:premium], location: params[:location])
@@ -69,7 +70,7 @@ class TransactionsController < ApplicationController
 
         buyer = Member.find(params[:buyer_id])
         seller = Member.find(params[:seller_id])
-        
+
         # set to same default state as in FE component
         buyer.update(active: false, mode: '', amount: 60, premium: 5, location: '')
         seller.update(active: false, mode: '', amount: 60, premium: 5, location: '')
