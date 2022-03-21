@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
                         client.messages.create(
                             body: "You've been matched at #{params[:location]} with #{seller_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
                             from: twilio_number,
-                            to: "+#{buyer_phone}"
+                            to: "+1#{buyer_phone}"
                         )
                 end
             rescue => e
@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
                     client.messages.create(
                     body: "You've been matched at #{params[:location]} with #{buyer_name}! Meet now at the ATM. For transaction specifics (or to cancel), login at https://cashclan.com.",
                     from: twilio_number,
-                    to: "+#{seller_phone}"
+                    to: "+1#{seller_phone}"
                     )
                 end
             rescue => e
