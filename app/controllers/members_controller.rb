@@ -51,7 +51,6 @@ class MembersController < ApplicationController
         # send myself a text message if a member publishes an offer, rescuing exception to continue execution if Twilio API call fails
         if member.active == true
 
-            member_name = Member.find(params[:id]).name
             account_sid = ENV['TWILIO_ACCOUNT_SID']
             auth_token = ENV['TWILIO_AUTH_TOKEN']
             twilio_number = ENV['TWILIO_NUMBER']
@@ -60,7 +59,7 @@ class MembersController < ApplicationController
             begin
                 client = Twilio::REST::Client.new(account_sid, auth_token)
                     client.messages.create(
-                        body: "#{member_name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
+                        body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
                         from: twilio_number,
                         to: my_phone
                     )
