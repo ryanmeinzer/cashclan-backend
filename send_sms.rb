@@ -8,7 +8,7 @@ require 'twilio-ruby'
 account_sid = ENV['TWILIO_ACCOUNT_SID']
 auth_token = ENV['TWILIO_AUTH_TOKEN']
 twilio_number = ENV['TWILIO_NUMBER']
-test_number = ENV['TEST_NUMBER']
+my_number = ENV['MY_NUMBER']
 @client = Twilio::REST::Client.new(account_sid, auth_token)
 
 message = @client.messages
