@@ -61,7 +61,7 @@ class MembersController < ApplicationController
                     client.messages.create(
                         body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
                         from: twilio_number,
-                        to: my_phone
+                        to: my_number
                     )
             rescue => e
                 puts e
