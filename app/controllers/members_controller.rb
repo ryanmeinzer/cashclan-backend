@@ -52,7 +52,7 @@ class MembersController < ApplicationController
         if member.active == false
             Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
-        # send myself a text message if a member publishes an offer, rescuing exception to continue execution if Twilio API call fails
+        # send myself a text message if a member publishes an offer
         if params[:active] == true
 
             account_sid = ENV['TWILIO_ACCOUNT_SID']
