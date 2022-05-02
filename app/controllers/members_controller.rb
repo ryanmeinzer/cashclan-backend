@@ -66,7 +66,7 @@ class MembersController < ApplicationController
                     from: twilio_number,
                     to: my_number
                 )
-        end
+        # end
         render json: member.to_json({
             except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
         })
