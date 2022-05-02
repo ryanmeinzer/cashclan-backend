@@ -1,3 +1,7 @@
+# no need to include below as Heroku handles with secured config vars
+# require '.env'
+require 'rubygems'
+require 'twilio-ruby'
 require 'http'
 
 class MembersController < ApplicationController
