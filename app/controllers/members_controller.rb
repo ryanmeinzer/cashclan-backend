@@ -50,17 +50,17 @@ class MembersController < ApplicationController
         # send myself a text message if a member publishes an offer, rescuing exception to continue execution if Twilio API call fails
         # if params[:active] == true
 
-            account_sid = ENV['TWILIO_ACCOUNT_SID']
-            auth_token = ENV['TWILIO_AUTH_TOKEN']
-            twilio_number = ENV['TWILIO_NUMBER']
-            my_number = ENV['MY_NUMBER']
+            # account_sid = ENV['TWILIO_ACCOUNT_SID']
+            # auth_token = ENV['TWILIO_AUTH_TOKEN']
+            # twilio_number = ENV['TWILIO_NUMBER']
+            # my_number = ENV['MY_NUMBER']
             
-            client = Twilio::REST::Client.new(account_sid, auth_token)
-                client.messages.create(
-                    body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
-                    from: twilio_number,
-                    to: my_number
-                )
+            # client = Twilio::REST::Client.new(account_sid, auth_token)
+            #     client.messages.create(
+            #         body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
+            #         from: twilio_number,
+            #         to: my_number
+            #     )
         # end
         member.update(member_params)
         # delete member's pending transaction(s) if they unpublish their offer
