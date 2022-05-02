@@ -49,6 +49,10 @@ class MembersController < ApplicationController
         member = Member.find(params[:id])
         member.update(member_params)
         # send myself a text message if a member publishes an offer, rescuing exception to continue execution if Twilio API call fails
+        # delete member's pending transaction(s) if they unpublish their offer
+        if member.active == false
+            Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
+        end
         if params[:active] == true
 
             account_sid = ENV['TWILIO_ACCOUNT_SID']
@@ -59,14 +63,9 @@ class MembersController < ApplicationController
             client = Twilio::REST::Client.new(account_sid, auth_token)
                 client.messages.create(
                     body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
-                    # body: "Tester 123.",
                     from: twilio_number,
                     to: '+12152857321'
                 )
-        end
-        # delete member's pending transaction(s) if they unpublish their offer
-        if member.active == false
-            Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
         render json: member.to_json({
             except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
