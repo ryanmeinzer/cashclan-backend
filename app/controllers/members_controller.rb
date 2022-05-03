@@ -56,7 +56,7 @@ class MembersController < ApplicationController
         begin
             if params[:active] == true
 
-                member = Member.find(params[:id])
+                # member = Member.find(params[:id])
 
                 account_sid = ENV['TWILIO_ACCOUNT_SID']
                 auth_token = ENV['TWILIO_AUTH_TOKEN']
