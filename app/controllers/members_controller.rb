@@ -52,20 +52,27 @@ class MembersController < ApplicationController
         if member.active == false
             Transaction.where(buyer_id: member.id, status: 'pending').or(Transaction.where(seller_id: member.id, status: 'pending')).destroy_all
         end
-        # send myself a text message if a member publishes an offer
-        if params[:active] == true
+        # send myself a text message if a member publishes an offer, rescuing exception to continue execution if Twilio API call fails
+        begin
+            if params[:active] == true
 
-            account_sid = ENV['TWILIO_ACCOUNT_SID']
-            auth_token = ENV['TWILIO_AUTH_TOKEN']
-            twilio_number = ENV['TWILIO_NUMBER']
-            my_number = ENV['MY_NUMBER']
-            
-            client = Twilio::REST::Client.new(account_sid, auth_token)
-                client.messages.create(
-                    body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
-                    from: twilio_number,
-                    to: '+12152857321'
-                )
+                member = Member.find(params[:id])
+                
+                account_sid = ENV['TWILIO_ACCOUNT_SID']
+                auth_token = ENV['TWILIO_AUTH_TOKEN']
+                twilio_number = ENV['TWILIO_NUMBER']
+                my_number = ENV['MY_NUMBER']
+                
+                client = Twilio::REST::Client.new(account_sid, auth_token)
+                    client.messages.create(
+                        body: "#{member.name} has published an offer to try #{params[:mode]} $#{params[:amount]} for a #{params[:premium]}% premium at #{params[:location]}.",
+                        from: twilio_number,
+                        to: '+12152857321'
+                    )
+            end
+        end
+        rescue => e
+            puts e
         end
         render json: member.to_json({
             except: [:created_at, :updated_at, :googleId, :email, :phone, :name, :image]
