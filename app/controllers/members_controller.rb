@@ -57,7 +57,7 @@ class MembersController < ApplicationController
             if params[:active] == true
 
                 member = Member.find(params[:id])
-                
+
                 account_sid = ENV['TWILIO_ACCOUNT_SID']
                 auth_token = ENV['TWILIO_AUTH_TOKEN']
                 twilio_number = ENV['TWILIO_NUMBER']
@@ -70,7 +70,6 @@ class MembersController < ApplicationController
                         to: '+12152857321'
                     )
             end
-        end
         rescue => e
             puts e
         end
